@@ -59,13 +59,13 @@
         owner: nginx
         group: nginx
 
-    - name: Enable nginx
-      service:
-        name: nginx
-        enabled: yes
+  #  - name: Enable nginx
+   #   service:
+    #    name: nginx
+     #   enabled: yes
 
-    - name: Start nginx
-      service:
-        name: nginx
-        state: restarted
+    #- name: Start nginx
+    #  service:
+    #    name: nginx
+    #    state: restarted
 ...
