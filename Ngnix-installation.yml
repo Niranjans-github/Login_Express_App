@@ -31,17 +31,18 @@
         line: '# (include /etc/nginx/conf.d/*.conf)'
         state: present
         
+    - name: remove Default nginx.conf
+      shell: rm -f /etc/ngnix/nginx.conf
+        
     - name: Copy nginx.conf file
-      ansible.builtin.copy:
-        src: /home/ansible
-        dest: /etc/nginx/nginx.conf
+      shell: cp /home/ansible/nginx.conf /etc/nginx/nginx.conf
 
     - name: view the copied file (Nginx.conf)
       shell: cat /etc/nginx/nginx.conf
       register: output
     - debug:
         var: output
-        
+
     - name: Recursively change ownership of a nginx directory
       ansible.builtin.file:
         path: /var/lib/nginx
