@@ -33,7 +33,7 @@
         
     - name: Copy nginx.conf file
       ansible.builtin.copy:
-        src: nginx.conf
+        src: /home/ansible
         dest: /etc/nginx/nginx.conf  
    
     - name: Recursively change ownership of a nginx directory
