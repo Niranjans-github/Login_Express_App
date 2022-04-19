@@ -27,7 +27,7 @@
 
     - name: Get status of nginx installed
       command: systemctl status nginx
-      register: nginx_installstatus
+      register: nginx_install_status
     
     - debug: 
         var: nginx_install_status
