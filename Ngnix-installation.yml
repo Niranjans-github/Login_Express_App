@@ -23,14 +23,7 @@
 
     - name: Get status of nginx installed
       command: systemctl status nginx
-   
-    - name: comment out a line
-      lineinfile:
-        dest: /etc/nginx/nginx.conf
-        regexp: ' (^include /etc/nginx/conf.d/*.conf)'
-        line: '# (include /etc/nginx/conf.d/*.conf)'
-        state: present
-        
+       
     - name: remove Default nginx.conf
       shell: rm -f /etc/ngnix/nginx.conf
         
