@@ -1,0 +1,71 @@
+---
+- name: Setup Nginx server on myserver list
+  hosts: localhost
+  become: True
+  tasks:
+    - name: Install the latest version of nginx
+      command: amazon-linux-extras install nginx1.12=latest -y
+      args:
+        creates: /sbin/nginx
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: Enable nginx
+      service:
+        name: nginx
+        enabled: yes
+
+    - name: Ensure nginx is at the latest version
+      command: nginx -v
+      register: nginx_version
+    
+    - debug:
+        var: nginx_version
+
+    - name: Get status of nginx installed
+      command: systemctl status nginx
+      register: nginx_install_status
+    
+    - debug: 
+        var: nginx_install_status
+   
+    # - name: comment out a line
+    #   lineinfile:
+    #     dest: /etc/nginx/nginx.conf
+    #     regexp: ' (^include /etc/nginx/conf.d/*.conf)'
+    #     line: '# (include /etc/nginx/conf.d/*.conf)'
+    #     state: present
+    # - name: remove Default nginx.conf
+    #   shell: rm -f /etc/ngnix/nginx.conf
+
+    - name: Copy nginx.conf file
+      shell: cp -f /home/ansible/nginx.conf /etc/nginx/nginx.conf
+
+    - name: view the copied file (Nginx.conf)
+      shell: cat /etc/nginx/nginx.conf
+      register: output
+    
+    - debug:
+        var: output
+
+    - name: Recursively change ownership of a nginx directory
+      ansible.builtin.file:
+        path: /var/lib/nginx
+        state: directory
+        recurse: yes
+        owner: nginx
+        group: nginx
+
+    - name: Enable nginx
+      service:
+        name: nginx
+        enabled: yes
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: restarted
+...
