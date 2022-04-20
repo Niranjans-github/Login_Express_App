@@ -32,14 +32,14 @@
     - debug: 
         var: nginx_install_status
    
-    # - name: comment out a line
-    #   lineinfile:
-    #     dest: /etc/nginx/nginx.conf
-    #     regexp: ' (^include /etc/nginx/conf.d/*.conf)'
-    #     line: '# (include /etc/nginx/conf.d/*.conf)'
-    #     state: present
-    # - name: remove Default nginx.conf
-    #   shell: rm -f /etc/ngnix/nginx.conf
+     - name: comment out a line
+       lineinfile:
+         dest: /etc/nginx/nginx.conf
+         regexp: ' (^include /etc/nginx/conf.d/*.conf)'
+         line: '# (include /etc/nginx/conf.d/*.conf)'
+         state: present
+     - name: remove Default nginx.conf
+       shell: rm -f /etc/ngnix/nginx.conf
 
     - name: Copy nginx.conf file
       shell: cp -f /home/ansible/nginx.conf /etc/nginx/nginx.conf
